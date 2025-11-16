@@ -25,7 +25,9 @@ pub struct Saturn;
 pub struct Uranus;
 pub struct Neptune;
 
-impl Planet for Mercury {}
+impl Planet for Mercury {
+    const IN_EARTH_FACTOR = 0.2408467;
+}
 impl Planet for Venus {}
 impl Planet for Earth {}
 impl Planet for Mars {}

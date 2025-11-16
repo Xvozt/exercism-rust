@@ -1,23 +1,31 @@
 use std::collections::HashSet;
 
 pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a [&str]) -> HashSet<&'a str> {
+    // prepare the word
+    let word = word.to_lowercase();
+    let mut word_as_chars: Vec<_> = word.chars().collect();
+    word_as_chars.sort();
+
+    // create hashset for result
     let mut result: HashSet<&str> = HashSet::new();
 
+    // find anagrams and add to the result set
     for candidate in possible_anagrams {
-        if candidate.len() != word.len() || candidate.to_lowercase() == word.to_lowercase() {
+        if candidate.len() != word.len() {
             continue;
         }
         let original_candidate = candidate;
         let candidate = candidate.to_lowercase();
-        let word = word.to_lowercase();
+
+        if candidate == word {
+            continue;
+        }
 
         let mut candidate_as_chars: Vec<char> = candidate.chars().collect();
-        let mut word_as_chars: Vec<char> = word.chars().collect();
 
         candidate_as_chars.sort();
-        word_as_chars.sort();
 
-        if candidate_as_chars.iter().eq(word_as_chars.iter()) {
+        if candidate_as_chars == word_as_chars {
             result.insert(original_candidate);
         }
     }
